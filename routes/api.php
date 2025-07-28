@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V2;
 
 use App\Http\Middleware\EnsureSystemKey;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V2\NewCheckoutController as ApiCityController;
 
 
 
@@ -500,6 +501,11 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
         Route::get('file/all', 'index');
         Route::get('file/delete/{id}', 'destroy');
     });
+
+    Route::get('cities', [ApiCityController::class, 'indexCities']);
+    Route::get('states', [ApiCityController::class, 'indexStates']);
+    Route::get('countries', [ApiCityController::class, 'indexCountries']);
+    Route::get('cities-by-state/{state_id}', [ApiCityController::class, 'getCityByStateId']);
 });
 
 Route::fallback(function () {

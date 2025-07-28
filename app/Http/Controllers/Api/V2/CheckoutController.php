@@ -98,8 +98,9 @@ class CheckoutController
             }
 
         }
-
+        $coupon_discount = Coupon::where('code', $request->coupon_code)->first()->discount;
         if($coupon_discount>0){
+            
             $cart_query = $user_id != null ? Cart::where('user_id', $user_id) : Cart::where('temp_user_id', $temp_user_id);
             $cart_query->where('owner_id', $coupon->user_id)->active()->update([
                 'discount' => $coupon_discount / count($cart_items),
